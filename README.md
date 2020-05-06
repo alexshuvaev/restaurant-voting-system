@@ -75,24 +75,24 @@ path: `/api/restaurants`
 Response example:
    
     [
-      {
-        "id": 1,
-        "restaurant_name": "La Maisie",
-        "restaurant_telephone": "(416) 901-1050",
-        "restaurant_address": "211 King St W, Toronto"
-      },
-      {
-        "id": 2,
-        "restaurant_name": "Courage Couture",
-        "restaurant_telephone": "(416) 203-1121",
-        "restaurant_address": "2281 Lake Shore Blvd W, Etobicoke, ON. M8V1C5"
-      },
-      {
-        "id": 3,
-        "restaurant_name": "Royal Palace",
-        "restaurant_telephone": "+14169162099",
-        "restaurant_address": "150 Eglinton Avenue East, Toronto M5H 3H1"
-      }
+       {
+          "id":1,
+          "restaurant_name":"La Maisie",
+          "restaurant_telephone":"(416) 901-1050",
+          "restaurant_address":"211 King St W, Toronto"
+       },
+       {
+          "id":2,
+          "restaurant_name":"Courage Couture",
+          "restaurant_telephone":"(416) 203-1121",
+          "restaurant_address":"2281 Lake Shore Blvd W, Etobicoke, ON. M8V1C5"
+       },
+       {
+          "id":3,
+          "restaurant_name":"Royal Palace",
+          "restaurant_telephone":"+14169162099",
+          "restaurant_address":"150 Eglinton Avenue East, Toronto M5H 3H1"
+       }
     ]     
     
 #### get all menus ####
@@ -108,36 +108,36 @@ Response example:
 
     
     {
-      "2020-05-03": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Ginger Chicken",
-              "dish_price": 22.99
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 2,
-          "restaurant_name": "Courage Couture",
-          "restaurant_menu": [
-            {
-              "dish_name": "Coleslaw Salad",
-              "dish_price": 5.99
-            },
-            {
-              "dish_name": "Rib-eye",
-              "dish_price": 49.99
-            }
-          ]
-        }
-      ]
+       "2020-05-06":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Ginger Chicken",
+                   "dish_price":22.99
+                },
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                }
+             ]
+          },
+          {
+             "restaurant_id":2,
+             "restaurant_name":"Courage Couture",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Coleslaw Salad",
+                   "dish_price":5.99
+                },
+                {
+                   "dish_name":"Rib-eye",
+                   "dish_price":49.99
+                }
+             ]
+          }
+       ]
     }
     
 Get all menus for period: 2020-05-01 – 2020-05-03
@@ -147,128 +147,54 @@ Get all menus for period: 2020-05-01 – 2020-05-03
 Response example: 
 
     {
-      "2020-05-03": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Ginger Chicken",
-              "dish_price": 22.99
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 2,
-          "restaurant_name": "Courage Couture",
-          "restaurant_menu": [
-            {
-              "dish_name": "Coleslaw Salad",
-              "dish_price": 5.99
-            },
-            {
-              "dish_name": "Rib-eye",
-              "dish_price": 49.99
-            }
-          ]
-        }
-      ],
-      "2020-05-02": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Stuffed Grape Leaves",
-              "dish_price": 7.99
-            },
-            {
-              "dish_name": "Flank Steak",
-              "dish_price": 22.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 2,
-          "restaurant_name": "Courage Couture",
-          "restaurant_menu": [
-            {
-              "dish_name": "Parmesan Chicken",
-              "dish_price": 16.49
-            },
-            {
-              "dish_name": "Caesar salad",
-              "dish_price": 9.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 3,
-          "restaurant_name": "Royal Palace",
-          "restaurant_menu": [
-            {
-              "dish_name": "Greek salad",
-              "dish_price": 4.99
-            },
-            {
-              "dish_name": "Chicken Shawarma on the Sticks",
-              "dish_price": 11.99
-            }
-          ]
-        }
-      ],
-      "2020-05-01": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Enchiladas",
-              "dish_price": 16
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            },
-            {
-              "dish_name": "tea",
-              "dish_price": 2.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 2,
-          "restaurant_name": "Courage Couture",
-          "restaurant_menu": [
-            {
-              "dish_name": "Prime Rib with Cheddar",
-              "dish_price": 49.99
-            },
-            {
-              "dish_name": "Turkish coffee",
-              "dish_price": 4.99
-            }
-          ]
-        },
-        {
-          "restaurant_id": 3,
-          "restaurant_name": "Royal Palace",
-          "restaurant_menu": [
-            {
-              "dish_name": "Rib-eye",
-              "dish_price": 33.99
-            },
-            {
-              "dish_name": "Apple Tart",
-              "dish_price": 10
-            }
-          ]
-        }
-      ]
+       "2020-05-03":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                },
+                {
+                   "dish_name":"Falafel plate",
+                   "dish_price":11.99
+                }
+             ]
+          },
+          {
+             "restaurant_id":2,
+             "restaurant_name":"Courage Couture",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Chicken Shawarma Plate",
+                   "dish_price":12.99
+                },
+                {
+                   "dish_name":"Coleslaw Salad",
+                   "dish_price":6.99
+                }
+             ]
+          },
+          {
+             "restaurant_id":3,
+             "restaurant_name":"Royal Palace",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Terrapura, Pinot Noir, Itata Valley, Chile  2018",
+                   "dish_price":14.0
+                },
+                {
+                   "dish_name":"Tartar de Carne",
+                   "dish_price":22.0
+                },
+                {
+                   "dish_name":"Vieira Cruda",
+                   "dish_price":23.0
+                }
+             ]
+          }
+       ]
     }
 
 #### get single restaurant menu ####
@@ -283,83 +209,99 @@ Get restaurant menu for today.
 Response example:  
     
     {
-      "2020-05-03": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Ginger Chicken",
-              "dish_price": 22.99
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            }
-          ]
-        }
-      ]
-    }  
+       "2020-05-06":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Ginger Chicken",
+                   "dish_price":22.99
+                },
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                }
+             ]
+          }
+       ]
+    } 
   
-Get restaurant menu for period: 2020-05-01 – 2020-05-03
+Get restaurant menu for period: 2020-05-01 – 2020-05-06 (Change period dates on actual)
 
-    curl -X GET "http://localhost:8080/api/restaurants/1?endDate=2020-05-03&startDate=2020-05-01" -H "accept: application/json"
+    curl -X GET "http://localhost:8080/api/restaurants/1?endDate=2020-05-06&startDate=2020-05-01" -H "accept: application/json"
     
 Response example: 
 
     {
-      "2020-05-03": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Ginger Chicken",
-              "dish_price": 22.99
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            }
-          ]
-        }
-      ],
-      "2020-05-02": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Stuffed Grape Leaves",
-              "dish_price": 7.99
-            },
-            {
-              "dish_name": "Flank Steak",
-              "dish_price": 22.99
-            }
-          ]
-        }
-      ],
-      "2020-05-01": [
-        {
-          "restaurant_id": 1,
-          "restaurant_name": "La Maisie",
-          "restaurant_menu": [
-            {
-              "dish_name": "Enchiladas",
-              "dish_price": 16
-            },
-            {
-              "dish_name": "Green Salad",
-              "dish_price": 4.99
-            },
-            {
-              "dish_name": "tea",
-              "dish_price": 2.99
-            }
-          ]
-        }
-      ]
+       "2020-05-06":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Ginger Chicken",
+                   "dish_price":22.99
+                },
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                }
+             ]
+          }
+       ],
+       "2020-05-05":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Stuffed Grape Leaves",
+                   "dish_price":7.99
+                },
+                {
+                   "dish_name":"Flank Steak",
+                   "dish_price":22.99
+                }
+             ]
+          }
+       ],
+       "2020-05-04":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Enchiladas",
+                   "dish_price":16.0
+                },
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                },
+                {
+                   "dish_name":"tea",
+                   "dish_price":2.99
+                }
+             ]
+          }
+       ],
+       "2020-05-03":[
+          {
+             "restaurant_id":1,
+             "restaurant_name":"La Maisie",
+             "restaurant_menu":[
+                {
+                   "dish_name":"Green Salad",
+                   "dish_price":4.99
+                },
+                {
+                   "dish_name":"Falafel plate",
+                   "dish_price":11.99
+                }
+             ]
+          }
+       ]
     }
     
 ### User API ###
@@ -381,31 +323,31 @@ Response example:
       "restaurant_name": "La Maisie"
     }
     
-Get users vote for period: 2020-05-01 – 2020-05-03
+Get users vote for period: 2020-05-01 – 2020-05-06 (Change period dates on actual)
 
-    curl -X GET "http://localhost:8080/api/profile/votes?endDate=2020-05-03&startDate=2020-05-01" -H "accept: application/json" --user user@yandex.ru:password
+    curl -X GET "http://localhost:8080/api/profile/votes?endDate=2020-05-06&startDate=2020-05-01" -H "accept: application/json" --user user@yandex.ru:password
 
 Response example:  
 
     [
-      {
-        "vote_id": 7,
-        "date_time": "2020-05-03T09:43:01",
-        "restaurant_id": 1,
-        "restaurant_name": "La Maisie"
-      },
-      {
-        "vote_id": 5,
-        "date_time": "2020-05-02T10:00:00",
-        "restaurant_id": 1,
-        "restaurant_name": "La Maisie"
-      },
-      {
-        "vote_id": 3,
-        "date_time": "2020-05-01T10:00:00",
-        "restaurant_id": 2,
-        "restaurant_name": "Courage Couture"
-      }
+       {
+          "vote_id":5,
+          "date_time":"2020-05-05T10:00:00",
+          "restaurant_id":1,
+          "restaurant_name":"La Maisie"
+       },
+       {
+          "vote_id":3,
+          "date_time":"2020-05-04T10:00:00",
+          "restaurant_id":3,
+          "restaurant_name":"Royal Palace"
+       },
+       {
+          "vote_id":1,
+          "date_time":"2020-05-03T10:00:00",
+          "restaurant_id":1,
+          "restaurant_name":"La Maisie"
+       }
     ]
     
 #### vote for restaurant ####
@@ -418,10 +360,10 @@ path: `/api/profile/restaurants/1`
 Response example: 
 
     {
-      "vote_id": 7,
-      "date_time": "2020-05-03T20:52:21.79679",
-      "restaurant_id": 1,
-      "restaurant_name": "La Maisie"
+       "vote_id":7,
+       "date_time":"2020-05-06T21:40:45.5536944",
+       "restaurant_id":1,
+       "restaurant_name":"La Maisie"
     }
     
 ### Admin API ###
@@ -443,10 +385,10 @@ Request example:
 Response example: 
 
     {
-      "id": 4,
-      "name": "New Restaurant",
-      "telephone": "000 000 000",
-      "address": "Street 1, 1"
+       "id":4,
+       "restaurant_name":"New Restaurant",
+       "restaurant_telephone":"000 000 000",
+       "restaurant_address":"Street 1, 1"
     }
 
 #### create menu ####
@@ -476,13 +418,13 @@ Response example:
     [
       {
         "id": 25,
-        "name": "Coffee cappuccino or cup of tea",
-        "price": 2.99
+        "dish_name": "Coffee cappuccino or cup of tea",
+        "dish_price": 2.99
       },
       {
         "id": 26,
-        "name": "Spaghetti",
-        "price": 17.99
+        "dish_name": "Spaghetti",
+        "dish_price": 17.99
       }
     ]
 
@@ -505,9 +447,9 @@ Response example:
 
     {
       "id": 1,
-      "name": "New restaurant name",
-      "telephone": "000 000 000",
-      "address": "New address"
+      "restaurant_name": "New restaurant name",
+      "restaurant_telephone": "000 000 000",
+      "restaurant_address": "New address"
     }
 
 #### update menu ####
@@ -537,13 +479,13 @@ Response example:
     [
       {
         "id": 27,
-        "name": "baklava and tea",
-        "price": 9.99
+        "dish_name": "baklava and tea",
+        "dish_price": 9.99
       },
       {
         "id": 28,
-        "name": "beef stroganoff",
-        "price": 18.99
+        "dish_name": "beef stroganoff",
+        "dish_price": 18.99
       }
     ]
    

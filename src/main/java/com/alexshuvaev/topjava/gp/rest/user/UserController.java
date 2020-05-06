@@ -77,14 +77,12 @@ public class UserController {
     public ResponseEntity<VoteTo> voteForRestaurant(@PathVariable Integer id, @AuthenticationPrincipal AuthorizedUser authUser)  {
         log.info("Vote for restaurant with id={}", id);
         Restaurant restaurant = restaurantRepository.findById(id).orElseThrow(()-> new NotFoundException("Restaurant with id=" + id + " not found"));
-
-        if (LocalTime.now().isAfter(DateTimeUtil.THRESHOLD_TIME)) {
-            throw new ForbiddenException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
-        }
-
         User user = userRepository.getOne(authUser.getId());
         Optional<Vote> existedVote = voteRepository.findByUserIdAndDate(authUser.getId(), LocalDate.now());
         if (existedVote.isPresent()) {
+            if (LocalTime.now().isAfter(DateTimeUtil.THRESHOLD_TIME)) {
+                throw new ForbiddenException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
+            }
             Vote updatedVote = new Vote(user, restaurant);
             updatedVote.setId(existedVote.get().getId());
             return new ResponseEntity<>(voteToCreate(voteRepository.save(updatedVote)), HttpStatus.OK);
