@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns='http://www.ehcache.org/v3'>
+    <cache alias="listOfTos">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>java.util.List</value-type>
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+
+        <listeners>
+            <listener>
+                <class>com.alexshuvaev.topjava.gp.config.CacheEventLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>ORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>REMOVED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+            </listener>
+        </listeners>
+
+        <resources>
+            <heap unit="kB">10</heap>
+        </resources>
+        <heap-store-settings>
+            <max-object-graph-size>1000</max-object-graph-size>
+        </heap-store-settings>
+    </cache>
+
+    <cache alias="mapOfTos">
+        <key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
+        <value-type>java.util.Map</value-type>
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+
+        <listeners>
+            <listener>
+                <class>com.alexshuvaev.topjava.gp.config.CacheEventLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>ORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>REMOVED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+            </listener>
+        </listeners>
+
+        <resources>
+            <heap unit="kB">10</heap>
+        </resources>
+        <heap-store-settings>
+            <max-object-graph-size>1000</max-object-graph-size>
+        </heap-store-settings>
+    </cache>
+</config>
