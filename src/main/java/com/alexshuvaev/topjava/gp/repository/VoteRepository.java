@@ -23,12 +23,6 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     Optional<List<Vote>> getAll(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("userId") Integer userId);
 
     /**
-     * Check if Users already voted today.
-     * @return true if already voted, and false if not.
-     */
-    boolean existsByDate(LocalDate date);
-
-    /**
      * FInd users Vote for today, if User already voted.
      * @param id of User.
      * @param date today
