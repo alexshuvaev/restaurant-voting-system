@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,10 +65,12 @@ public class UserController {
         List<LocalDate> list = DateTimeUtil.checkAndInitStartDateEndDate(startDate, endDate);
         log.info("Get votes history, user id={}", authUser.getId());
 
-        List<Vote> findVotes = voteRepository.getAll(list.get(0), list.get(1), authUser.getId())
-                .orElseThrow(() -> new NotFoundException("Votes was not found."));
-
-        return voteTosCreate(findVotes);
+        Optional<List<Vote>> findVotes = voteRepository.getAll(list.get(0), list.get(1), authUser.getId());
+        if (findVotes.isPresent()){
+            return voteTosCreate(findVotes.get());
+        }else {
+            return Collections.emptyList();
+        }
     }
 
     @Transactional
