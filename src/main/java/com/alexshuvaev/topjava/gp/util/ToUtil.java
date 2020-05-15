@@ -22,26 +22,26 @@ public final class ToUtil {
     private ToUtil() {
     }
 
-    public static Map<LocalDate, List<MenuTo>> allMenuTosCreate(List<Dish> dishesBetween) {
-        Set<MenuTo> menuToList = dishesBetween.stream()
+    public static Map<LocalDate, List<MenuTo>> allMenuTosCreate(List<Dish> dishes) {
+        Set<MenuTo> menuToList = dishes.stream()
                 .map(e -> new MenuTo(e.getDate(), e.getRestaurant().getId(), e.getRestaurant().getName()))
                 .collect(Collectors.toSet());
 
         List<MenuTo> menuTos = menuToList.stream()
-                .peek(e -> e.setDishes(filterDishesBetween(e, dishesBetween)))
+                .peek(e -> e.setDishes(filterDishes(e, dishes)))
                 .sorted(Comparator.comparing(MenuTo::getId))
                 .collect(Collectors.toList());
 
         return menuTos.stream().collect(Collectors.groupingBy(MenuTo::getDate));
     }
 
-    private static Set<DishTo> filterDishesBetween(MenuTo menuTo, List<Dish> dishesBetween) {
-        List<Dish> dishes = dishesBetween.stream()
+    private static Set<DishTo> filterDishes(MenuTo menuTo, List<Dish> dishes) {
+        List<Dish> disheList = dishes.stream()
                 .filter(e -> e.getDate().equals(menuTo.getDate()))
                 .filter(e -> e.getRestaurant().getName().equals(menuTo.getName()))
                 .collect(Collectors.toList());
 
-        return dishes.stream()
+        return disheList.stream()
                 .map(e -> new DishTo(e.getName(), e.getPrice())).collect(Collectors.toSet());
     }
 
