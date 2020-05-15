@@ -3,7 +3,6 @@ package com.alexshuvaev.topjava.gp.rest.guest;
 import com.alexshuvaev.topjava.gp.repository.DishRepository;
 import com.alexshuvaev.topjava.gp.repository.RestaurantRepository;
 import com.alexshuvaev.topjava.gp.repository.VoteRepository;
-import com.alexshuvaev.topjava.gp.to.MenuTo;
 import com.alexshuvaev.topjava.gp.to.RestaurantTo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -15,17 +14,18 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.*;
-import static com.alexshuvaev.topjava.gp.testdata.AllTestData.*;
-import static com.alexshuvaev.topjava.gp.testdata.UserTestData.ADMIN;
-import static com.alexshuvaev.topjava.gp.testdata.UserTestData.ADMIN_PASSWORD;
-import static com.alexshuvaev.topjava.gp.util.TestUtil.*;
+import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.GET_MENUS_LIST;
+import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.GET_RESTAURANT_LIST;
+import static com.alexshuvaev.topjava.gp.testdata.AllTestData.createRestaurantTosList;
+import static com.alexshuvaev.topjava.gp.util.TestUtil.TODAY_STRING;
+import static com.alexshuvaev.topjava.gp.util.TestUtil.TOMORROW_STRING;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

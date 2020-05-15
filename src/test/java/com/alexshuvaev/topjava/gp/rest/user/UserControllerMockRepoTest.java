@@ -3,23 +3,19 @@ package com.alexshuvaev.topjava.gp.rest.user;
 import com.alexshuvaev.topjava.gp.repository.DishRepository;
 import com.alexshuvaev.topjava.gp.repository.RestaurantRepository;
 import com.alexshuvaev.topjava.gp.repository.VoteRepository;
-import com.alexshuvaev.topjava.gp.to.RestaurantTo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
-import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.*;
-import static com.alexshuvaev.topjava.gp.testdata.AllTestData.*;
+import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.GET_USER_VOTES_HISTORY;
 import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER;
 import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER_PASSWORD;
 import static com.alexshuvaev.topjava.gp.util.TestUtil.*;

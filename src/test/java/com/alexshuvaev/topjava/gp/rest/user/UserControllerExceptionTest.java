@@ -23,7 +23,6 @@ import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER;
 import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER_PASSWORD;
 import static com.alexshuvaev.topjava.gp.util.DateTimeUtil.THRESHOLD_TIME;
 import static com.alexshuvaev.topjava.gp.util.TestUtil.userHttpBasic;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

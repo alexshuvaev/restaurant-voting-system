@@ -3,7 +3,6 @@ package com.alexshuvaev.topjava.gp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * Simple JavaBean domain object representing a Dish.
