@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -43,7 +44,8 @@ class AdminRestaurantControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void createRestaurant() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void createRestaurant() throws Exception {
         NEW_RESTAURANT.setId(null);
         String actual = mockMvc.perform(post(POST_ADMIN_CREATE_RESTAURANT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -61,7 +63,8 @@ class AdminRestaurantControllerTest {
     }
 
     @Test
-    void updateRestaurant() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void updateRestaurant() throws Exception {
         assertEquals(objectMapper.writeValueAsString(RESTAURANT_1), objectMapper.writeValueAsString(restaurantRepository.findById(1)));
 
         String actual = mockMvc.perform(put(PUT_UPDATE_RESTAURANT_INFO, "1")
@@ -79,7 +82,8 @@ class AdminRestaurantControllerTest {
     }
 
     @Test
-    void deleteRestaurant() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void deleteRestaurant() throws Exception {
         mockMvc.perform(delete(DELETE_RESTAURANT, "3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN, ADMIN_PASSWORD)))
@@ -88,7 +92,8 @@ class AdminRestaurantControllerTest {
     }
 
     @Test
-    void createMenu() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void createMenu() throws Exception {
         String actual = mockMvc.perform(post(POST_ADMIN_CREATE_MENU, "3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN, ADMIN_PASSWORD))
@@ -104,7 +109,8 @@ class AdminRestaurantControllerTest {
     }
 
     @Test
-    void updateMenu() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void updateMenu() throws Exception {
         String actual = mockMvc.perform(put(PUT_UPDATE_MENU, "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN, ADMIN_PASSWORD))
@@ -123,7 +129,8 @@ class AdminRestaurantControllerTest {
     }
 
     @Test
-    void deleteMenu() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void deleteMenu() throws Exception {
         mockMvc.perform(delete(DELETE_MENU, "1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN, ADMIN_PASSWORD)))

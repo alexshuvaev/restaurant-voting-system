@@ -16,6 +16,7 @@ import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,7 @@ public class UserController {
         }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_USER')")
     @ApiOperation(value = "Vote for restaurant", authorizations = {@Authorization(value = "Basic")})

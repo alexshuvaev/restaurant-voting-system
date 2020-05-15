@@ -14,6 +14,7 @@ import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,7 @@ public class AdminRestaurantController {
         this.voteRepository = voteRepository;
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Create restaurant", authorizations = {@Authorization(value = "Basic")})
     @PostMapping(value = POST_ADMIN_CREATE_RESTAURANT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +73,7 @@ public class AdminRestaurantController {
         );
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Update restaurant", authorizations = {@Authorization(value = "Basic")})
@@ -90,6 +93,7 @@ public class AdminRestaurantController {
         );
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Delete restaurant", authorizations = {@Authorization(value = "Basic")})
@@ -99,6 +103,7 @@ public class AdminRestaurantController {
         checkNotFoundWithId(restaurantRepository.delete(id) != 0, id);
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Create Menu", notes = "Create restaurants menu for today", authorizations = {@Authorization(value = "Basic")})
@@ -106,7 +111,6 @@ public class AdminRestaurantController {
     public ResponseEntity<Map<LocalDate, List<MenuTo>>> createMenu(@PathVariable Integer id, @RequestBody @Valid MenuTo menuTo, BindingResult r) {
         log.info("Create menu for restaurant with id={}", id);
         fieldValidation(r);
-        checkForVotesExist("Create");
 
         Optional<List<Dish>> dishesForToday = dishRepository.getDishesBetweenSingleRestaurant(LocalDate.now(), LocalDate.now(), id);
         if (dishesForToday.isEmpty()) {
@@ -121,6 +125,7 @@ public class AdminRestaurantController {
         }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Update Menu", notes = "Update restaurants menu for today", authorizations = {@Authorization(value = "Basic")})
@@ -128,7 +133,6 @@ public class AdminRestaurantController {
     public ResponseEntity<Map<LocalDate, List<MenuTo>>> updateMenu(@PathVariable Integer id, @RequestBody @Valid MenuTo menuTo, BindingResult r) {
         log.info("Update menu for restaurant with id={}", id);
         fieldValidation(r);
-        checkForVotesExist("Update");
 
         Optional<Restaurant> restaurant = restaurantRepository.getRestaurantWithDishesForToday(id, LocalDate.now());
 
@@ -142,6 +146,7 @@ public class AdminRestaurantController {
         }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -149,7 +154,6 @@ public class AdminRestaurantController {
     @DeleteMapping(value = DELETE_MENU)
     public void deleteMenu(@PathVariable Integer id) {
         log.info("Delete menu for restaurant with id={}", id);
-        checkForVotesExist("Delete");
 
         if (!restaurantRepository.existsById(id)) {
             throw new NotFoundException("Delete not allowed. Restaurant with id=" + id + " not found.");
@@ -160,12 +164,6 @@ public class AdminRestaurantController {
             throw new NotFoundException("Delete not allowed. Menu not found.");
         } else {
             dishRepository.deleteAll(restaurant.get().getDishes());
-        }
-    }
-
-    private void checkForVotesExist(String operation) {
-        if (voteRepository.existsByDate(LocalDate.now())) {
-            throw new ForbiddenException(operation + " not allowed. Users already voted.");
         }
     }
 }

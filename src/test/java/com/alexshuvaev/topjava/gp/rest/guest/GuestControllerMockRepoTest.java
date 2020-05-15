@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -48,7 +49,8 @@ class GuestControllerMockRepoTest {
     ObjectMapper objectMapper;
 
     @Test
-    void findAll_emptyRestaurantList() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAll_emptyRestaurantList() throws Exception {
         when(restaurantRepository
                 .findAll(Sort.by(Sort.Direction.ASC, "id")))
                 .thenReturn(Collections.emptyList());
@@ -68,7 +70,8 @@ class GuestControllerMockRepoTest {
     }
 
     @Test
-    void findAllMenus() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAllMenus() throws Exception {
         when(dishRepository
                 .getDishesBetween(any(), any()))
                 .thenReturn(Optional.empty());

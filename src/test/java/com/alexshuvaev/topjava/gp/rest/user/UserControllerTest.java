@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -47,7 +48,8 @@ class UserControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void getVotesHistory() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void getVotesHistory() throws Exception {
         String actual = mockMvc.perform(get(GET_USER_VOTES_HISTORY)
                 .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
@@ -63,7 +65,8 @@ class UserControllerTest {
     }
 
     @Test
-    void voteForRestaurant_Create() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void voteForRestaurant_Create() throws Exception {
         ResultActions perform = mockMvc.perform(post(POST_VOTE_FOR_RESTAURANT, "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER, USER_PASSWORD))
@@ -88,7 +91,8 @@ class UserControllerTest {
 
     @Disabled("No votes in database for today, nothing update. That's why this test is ignoring.")
     @Test
-    void voteForRestaurant_Update() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void voteForRestaurant_Update() throws Exception {
         ResultActions perform = mockMvc.perform(post(POST_VOTE_FOR_RESTAURANT, "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER, USER_PASSWORD))

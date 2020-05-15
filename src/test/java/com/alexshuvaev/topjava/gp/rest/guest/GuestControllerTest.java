@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -42,7 +43,8 @@ class GuestControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void findAll() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAll() throws Exception {
         String actual = mockMvc.perform(get(GET_RESTAURANT_LIST)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -56,7 +58,8 @@ class GuestControllerTest {
     }
 
     @Test
-    void findAllMenus() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAllMenus() throws Exception {
         String actual = mockMvc.perform(get(GET_MENUS_LIST)
                 .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
@@ -78,7 +81,8 @@ class GuestControllerTest {
     }
 
     @Test
-    void getSingleRestaurantMenu() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void getSingleRestaurantMenu() throws Exception {
         int restaurantId = 1;
         String actual = mockMvc.perform(get(GET_SINGLE_RESTAURANT_MENU, restaurantId)
                 .param("id", String.valueOf(restaurantId))

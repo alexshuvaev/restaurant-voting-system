@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -62,7 +63,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void deleteRestaurant_NFE() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void deleteRestaurant_NFE() throws Exception {
         when(restaurantRepository
                 .delete(100000))
                 .thenReturn(0);
@@ -77,7 +79,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void createMenu_menuAlreadyExist() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void createMenu_menuAlreadyExist() throws Exception {
         when(dishRepository
                 .getDishesBetweenSingleRestaurant(any(), any(), any()))
                 .thenReturn(Optional.of(Arrays.asList(DISH_15_R1, DISH_16_R1)));
@@ -94,7 +97,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void createMenu_NFE() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void createMenu_NFE() throws Exception {
         when(dishRepository
                 .getDishesBetweenSingleRestaurant(any(), any(), any()))
                 .thenReturn(Optional.empty());
@@ -115,26 +119,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void createMenu_VoteExist() throws Exception {
-        when(voteRepository
-                .existsByDate(any()))
-                .thenReturn(true);
-
-        mockMvc.perform(post(POST_ADMIN_CREATE_MENU, "100000")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN, ADMIN_PASSWORD))
-                .content(objectMapper.writeValueAsString(new MenuTo(null,null, null, createDishTosSet(Arrays.asList(NEW_DISH_25_R3, NEW_DISH_26_R3))))))
-                .andExpect(status().isForbidden())
-                .andDo(print());
-
-        verify(voteRepository, times(1)).existsByDate(any());
-        verify(dishRepository, times(0)).getDishesBetweenSingleRestaurant(any(), any(), any());
-        verify(restaurantRepository, times(0)).getOne(any());
-        verify(dishRepository, times(0)).saveAll(any());
-    }
-
-    @Test
-    void updateMenu_NFE() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void updateMenu_NFE() throws Exception {
         when(restaurantRepository
                 .getRestaurantWithDishesForToday(anyInt(), any()))
                 .thenReturn(Optional.empty());
@@ -152,26 +138,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void updateMenu_VoteExist() throws Exception {
-        when(voteRepository
-                .existsByDate(any()))
-                .thenReturn(true);
-
-        mockMvc.perform(put(PUT_UPDATE_MENU, "2")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN, ADMIN_PASSWORD))
-                .content(objectMapper.writeValueAsString(new MenuTo(null,null, null, createDishTosSet(Arrays.asList(UPD_DISH_23_R2, UPD_DISH_24_R2))))))
-                .andExpect(status().isForbidden())
-                .andDo(print());
-
-        verify(voteRepository, times(1)).existsByDate(any());
-        verify(restaurantRepository, times(0)).getRestaurantWithDishesForToday(any(), any());
-        verify(dishRepository, times(0)).deleteAll(any());
-        verify(dishRepository, times(0)).saveAll(any());
-    }
-
-    @Test
-    void deleteMenu_NFE() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void deleteMenu_NFE() throws Exception {
         when(restaurantRepository
                 .existsById(100000))
                 .thenReturn(false);
@@ -188,7 +156,8 @@ class AdminRestaurantControllerExceptionTest {
     }
 
     @Test
-    void deleteMenu_NFE_2() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void deleteMenu_NFE_2() throws Exception {
         when(restaurantRepository
                 .existsById(1))
                 .thenReturn(true);
@@ -205,24 +174,6 @@ class AdminRestaurantControllerExceptionTest {
 
         verify(restaurantRepository, times(1)).existsById(1);
         verify(restaurantRepository, times(1)).getRestaurantWithDishesForToday(any(), any());
-        verify(dishRepository, times(0)).deleteAll(any());
-    }
-
-    @Test
-    void deleteMenu_VoteExist() throws Exception {
-        when(voteRepository
-                .existsByDate(any()))
-                .thenReturn(true);
-
-        mockMvc.perform(delete(DELETE_MENU, "100000")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN, ADMIN_PASSWORD)))
-                .andExpect(status().isForbidden())
-                .andDo(print());
-
-        verify(voteRepository, times(1)).existsByDate(any());
-        verify(restaurantRepository, times(0)).existsById(100000);
-        verify(restaurantRepository, times(0)).getRestaurantWithDishesForToday(any(), any());
         verify(dishRepository, times(0)).deleteAll(any());
     }
 }
