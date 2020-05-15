@@ -37,7 +37,7 @@ CREATE TABLE dish
 (
     id            INTEGER            NOT NULL AUTO_INCREMENT,
     name          VARCHAR(255)       NOT NULL,
-    price         DECIMAL            NOT NULL,
+    price         DOUBLE            NOT NULL,
     date          DATE DEFAULT now() NOT NULL,
     restaurant_id INTEGER            NOT NULL,
     PRIMARY KEY (id),

@@ -7,7 +7,7 @@ import com.alexshuvaev.topjava.gp.to.DishTo;
 import com.alexshuvaev.topjava.gp.to.MenuTo;
 import com.alexshuvaev.topjava.gp.to.RestaurantTo;
 import com.alexshuvaev.topjava.gp.to.VoteTo;
-
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -50,26 +50,26 @@ public final class AllTestData {
 
     // Dishes
 
-    public static final Dish DISH_15_R1 = new Dish(15, "Stuffed Grape Leaves", 7.99, RESTAURANT_1, TODAY.minusDays(1));
-    public static final Dish DISH_16_R1 = new Dish(16, "Flank Steak", 22.99, RESTAURANT_1, TODAY.minusDays(1));
+    public static final Dish DISH_15_R1 = new Dish(15, "Stuffed Grape Leaves", BigDecimal.valueOf(7.99), RESTAURANT_1, TODAY.minusDays(1));
+    public static final Dish DISH_16_R1 = new Dish(16, "Flank Steak", BigDecimal.valueOf(22.99), RESTAURANT_1, TODAY.minusDays(1));
 
-    public static final Dish DISH_17_R2 = new Dish(17, "Parmesan Chicken", 16.49, RESTAURANT_2, TODAY.minusDays(1));
-    public static final Dish DISH_18_R2 = new Dish(18, "Caesar salad", 9.99, RESTAURANT_2, TODAY.minusDays(1));
+    public static final Dish DISH_17_R2 = new Dish(17, "Parmesan Chicken", BigDecimal.valueOf(16.49), RESTAURANT_2, TODAY.minusDays(1));
+    public static final Dish DISH_18_R2 = new Dish(18, "Caesar salad", BigDecimal.valueOf(9.99), RESTAURANT_2, TODAY.minusDays(1));
 
-    public static final Dish DISH_19_R3 = new Dish(19, "Chicken Shawarma on the Sticks", 11.99, RESTAURANT_3, TODAY.minusDays(1));
-    public static final Dish DISH_20_R3 = new Dish(20, "Greek salad", 4.99, RESTAURANT_3, TODAY.minusDays(1));
+    public static final Dish DISH_19_R3 = new Dish(19, "Chicken Shawarma on the Sticks", BigDecimal.valueOf(11.99), RESTAURANT_3, TODAY.minusDays(1));
+    public static final Dish DISH_20_R3 = new Dish(20, "Greek salad", BigDecimal.valueOf(4.99), RESTAURANT_3, TODAY.minusDays(1));
 
-    public static final Dish DISH_21_R1 = new Dish(21, "Green Salad", 4.99, RESTAURANT_1, TODAY);
-    public static final Dish DISH_22_R1 = new Dish(22, "Ginger Chicken", 22.99, RESTAURANT_1, TODAY);
+    public static final Dish DISH_21_R1 = new Dish(21, "Green Salad", BigDecimal.valueOf(4.99), RESTAURANT_1, TODAY);
+    public static final Dish DISH_22_R1 = new Dish(22, "Ginger Chicken", BigDecimal.valueOf(22.99), RESTAURANT_1, TODAY);
 
-    public static final Dish DISH_23_R2 = new Dish(23, "Rib-eye", 49.99, RESTAURANT_2, TODAY);
-    public static final Dish DISH_24_R2 = new Dish(24, "Coleslaw Salad", 5.99, RESTAURANT_2, TODAY);
+    public static final Dish DISH_23_R2 = new Dish(23, "Rib-eye", BigDecimal.valueOf(49.99), RESTAURANT_2, TODAY);
+    public static final Dish DISH_24_R2 = new Dish(24, "Coleslaw Salad", BigDecimal.valueOf(5.99), RESTAURANT_2, TODAY);
 
-    public static final Dish NEW_DISH_25_R3 = new Dish(25, "Salmon", 39.99, RESTAURANT_3, TODAY);
-    public static final Dish NEW_DISH_26_R3 = new Dish(26, "Hummus", 5.99, RESTAURANT_3, TODAY);
+    public static final Dish NEW_DISH_25_R3 = new Dish(25, "Salmon", BigDecimal.valueOf(39.99), RESTAURANT_3, TODAY);
+    public static final Dish NEW_DISH_26_R3 = new Dish(26, "Hummus", BigDecimal.valueOf(5.99), RESTAURANT_3, TODAY);
 
-    public static final Dish UPD_DISH_23_R2 = new Dish(23, "Rib-eye" + updString, 49.99, RESTAURANT_2, TODAY);
-    public static final Dish UPD_DISH_24_R2 = new Dish(24, "Coleslaw Salad" + updString, 5.99, RESTAURANT_2, TODAY);
+    public static final Dish UPD_DISH_23_R2 = new Dish(23, "Rib-eye" + updString, BigDecimal.valueOf(49.99), RESTAURANT_2, TODAY);
+    public static final Dish UPD_DISH_24_R2 = new Dish(24, "Coleslaw Salad" + updString, BigDecimal.valueOf(5.99), RESTAURANT_2, TODAY);
 
     // Votes
 
