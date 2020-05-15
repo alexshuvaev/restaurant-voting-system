@@ -31,6 +31,7 @@ CREATE TABLE restaurant
     address   VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+CREATE UNIQUE INDEX restaurant_unique_name_tel_idx on restaurant (name, telephone);
 
 CREATE TABLE dish
 (
@@ -42,7 +43,7 @@ CREATE TABLE dish
     PRIMARY KEY (id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE
 );
-CREATE INDEX dish_unique_date_idx ON dish (date);
+CREATE UNIQUE INDEX dish_name_date_restaurant_idx ON dish (name, date, restaurant_id);
 
 CREATE TABLE vote
 (
@@ -57,6 +58,6 @@ CREATE TABLE vote
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE SET NULL
 );
-CREATE INDEX vote_uniq_date_time_idx ON vote (date, time);
-CREATE INDEX vote_uniq_user_idx ON vote (user_email_history);
-CREATE INDEX vote_uniq_restaurant_idx ON vote (restaurant_name_history);
+CREATE UNIQUE INDEX vote_uniq_date_idx ON vote (date, user_id, restaurant_id);
+CREATE INDEX vote_user_idx ON vote (user_email_history);
+CREATE INDEX vote_restaurant_idx ON vote (restaurant_name_history);
