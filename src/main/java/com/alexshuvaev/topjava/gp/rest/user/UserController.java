@@ -9,7 +9,7 @@ import com.alexshuvaev.topjava.gp.repository.UserRepository;
 import com.alexshuvaev.topjava.gp.repository.VoteRepository;
 import com.alexshuvaev.topjava.gp.to.VoteTo;
 import com.alexshuvaev.topjava.gp.util.DateTimeUtil;
-import com.alexshuvaev.topjava.gp.util.exception.ForbiddenException;
+import com.alexshuvaev.topjava.gp.util.exception.NotAllowedException;
 import com.alexshuvaev.topjava.gp.util.exception.NotFoundException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -84,7 +84,7 @@ public class UserController {
         Optional<Vote> existedVote = voteRepository.findByUserIdAndDate(authUser.getId(), LocalDate.now());
         if (existedVote.isPresent()) {
             if (LocalTime.now().isAfter(DateTimeUtil.THRESHOLD_TIME)) {
-                throw new ForbiddenException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
+                throw new NotAllowedException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
             }
             Vote updatedVote = new Vote(user, restaurant);
             updatedVote.setId(existedVote.get().getId());

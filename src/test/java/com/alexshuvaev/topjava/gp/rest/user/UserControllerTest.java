@@ -111,7 +111,7 @@ class UserControllerTest {
 
             assertEquals(createVoteTo(UPD_VOTE_7_U1), actual);
         } else {
-            perform.andExpect(status().isForbidden()).andDo(print());
+            perform.andExpect(status().isMethodNotAllowed()).andDo(print());
         }
     }
 }
