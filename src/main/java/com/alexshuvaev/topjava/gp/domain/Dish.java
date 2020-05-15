@@ -45,20 +45,6 @@ public class Dish extends AbstractNamedEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Dish)) return false;
-        if (!super.equals(o)) return false;
-        Dish dish = (Dish) o;
-        return getPrice().equals(dish.getPrice()) && getName().equals(dish.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode());
-    }
-
-    @Override
     public String toString() {
         return "Dish: " + super.toString() + ", price=" + price + ", restaurant: " + " id=" + restaurant.getId() + ", name=" + restaurant.getName();
     }
