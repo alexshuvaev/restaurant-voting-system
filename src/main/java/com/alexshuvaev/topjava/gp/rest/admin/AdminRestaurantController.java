@@ -14,6 +14,7 @@ import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,7 @@ public class AdminRestaurantController {
         this.voteRepository = voteRepository;
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Create restaurant", authorizations = {@Authorization(value = "Basic")})
     @PostMapping(value = POST_ADMIN_CREATE_RESTAURANT, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -71,6 +73,7 @@ public class AdminRestaurantController {
         );
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Update restaurant", authorizations = {@Authorization(value = "Basic")})
@@ -90,6 +93,7 @@ public class AdminRestaurantController {
         );
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Delete restaurant", authorizations = {@Authorization(value = "Basic")})
@@ -99,6 +103,7 @@ public class AdminRestaurantController {
         checkNotFoundWithId(restaurantRepository.delete(id) != 0, id);
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Create Menu", notes = "Create restaurants menu for today", authorizations = {@Authorization(value = "Basic")})
@@ -121,6 +126,7 @@ public class AdminRestaurantController {
         }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "Update Menu", notes = "Update restaurants menu for today", authorizations = {@Authorization(value = "Basic")})
@@ -142,6 +148,7 @@ public class AdminRestaurantController {
         }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
