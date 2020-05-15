@@ -13,7 +13,7 @@ public final class DateTimeUtil {
     /**
      * THRESHOLD_TIME need for control of Users voting time. After that threshold voting is not allowed.
      */
-    public static final LocalTime THRESHOLD_TIME = LocalTime.of(14,0,0);
+    public static final LocalTime THRESHOLD_TIME = LocalTime.of(11,0,0);
 
     public static final DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm");
 
