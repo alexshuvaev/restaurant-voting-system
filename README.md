@@ -1,4 +1,10 @@
+
+
 # Restaurant voting app #
+### Важно:!! На данный момент актуальная версия в ветке *hotfix-0.1* ###
+С исправленными багами. 
+
+
 > https://topjava.ru graduation project.
 >
 > Software requirements in REQUIREMENTS.md file.
