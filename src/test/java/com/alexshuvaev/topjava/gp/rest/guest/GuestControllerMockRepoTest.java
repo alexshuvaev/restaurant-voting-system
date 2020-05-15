@@ -22,7 +22,7 @@ import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.GET_MENUS_LIST;
 import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.GET_RESTAURANT_LIST;
 import static com.alexshuvaev.topjava.gp.testdata.AllTestData.createRestaurantTosList;
 import static com.alexshuvaev.topjava.gp.util.TestUtil.TODAY_STRING;
-import static com.alexshuvaev.topjava.gp.util.TestUtil.TOMORROW_STRING;
+import static com.alexshuvaev.topjava.gp.util.TestUtil.YESTERDAY_STRING;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -74,7 +74,7 @@ class GuestControllerMockRepoTest {
                 .thenReturn(Optional.empty());
 
         String actual = mockMvc.perform(get(GET_MENUS_LIST)
-                .param("startDate", TOMORROW_STRING)
+                .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

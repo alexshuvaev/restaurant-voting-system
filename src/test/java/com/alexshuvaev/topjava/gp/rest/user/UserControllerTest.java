@@ -49,7 +49,7 @@ class UserControllerTest {
     @Test
     void getVotesHistory() throws Exception {
         String actual = mockMvc.perform(get(GET_USER_VOTES_HISTORY)
-                .param("startDate", TOMORROW_STRING)
+                .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
                 .with(userHttpBasic(USER, USER_PASSWORD))
                 .accept(MediaType.APPLICATION_JSON))
