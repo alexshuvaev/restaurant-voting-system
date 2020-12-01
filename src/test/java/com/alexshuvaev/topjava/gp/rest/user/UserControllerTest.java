@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -47,9 +48,10 @@ class UserControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void getVotesHistory() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void getVotesHistory() throws Exception {
         String actual = mockMvc.perform(get(GET_USER_VOTES_HISTORY)
-                .param("startDate", TOMORROW_STRING)
+                .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
                 .with(userHttpBasic(USER, USER_PASSWORD))
                 .accept(MediaType.APPLICATION_JSON))
@@ -63,7 +65,8 @@ class UserControllerTest {
     }
 
     @Test
-    void voteForRestaurant_Create() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void voteForRestaurant_Create() throws Exception {
         ResultActions perform = mockMvc.perform(post(POST_VOTE_FOR_RESTAURANT, "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER, USER_PASSWORD))
@@ -88,7 +91,8 @@ class UserControllerTest {
 
     @Disabled("No votes in database for today, nothing update. That's why this test is ignoring.")
     @Test
-    void voteForRestaurant_Update() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void voteForRestaurant_Update() throws Exception {
         ResultActions perform = mockMvc.perform(post(POST_VOTE_FOR_RESTAURANT, "2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER, USER_PASSWORD))
@@ -111,7 +115,7 @@ class UserControllerTest {
 
             assertEquals(createVoteTo(UPD_VOTE_7_U1), actual);
         } else {
-            perform.andExpect(status().isForbidden()).andDo(print());
+            perform.andExpect(status().isMethodNotAllowed()).andDo(print());
         }
     }
 }

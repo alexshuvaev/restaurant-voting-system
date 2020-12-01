@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -48,11 +49,12 @@ public class GuestController {
     @GetMapping(GET_RESTAURANT_LIST)
     public List<RestaurantTo> findAll() {
         log.info("Get all restaurants");
-
         List<Restaurant> restaurants = restaurantRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
-        if (restaurants.isEmpty()) throw new NotFoundException("Restaurants not found");
-
-        return allRestaurantTosCreate(restaurants);
+        if (restaurants.isEmpty()) {
+            return Collections.emptyList();
+        } else {
+            return allRestaurantTosCreate(restaurants);
+        }
     }
 
     @Cacheable("mapOfTos")
@@ -67,8 +69,11 @@ public class GuestController {
         log.info("Get all menus for period: startDate={}, endDate={}", list.get(0), list.get(1));
 
         Optional<List<Dish>> dishesBetween = dishRepository.getDishesBetween(list.get(0), list.get(1));
-
-        return allMenuTosCreate(dishesBetween.orElseThrow(()-> new NotFoundException("Menus not found")));
+        if (dishesBetween.isPresent()) {
+            return allMenuTosCreate(dishesBetween.get());
+        } else {
+            return Collections.emptyMap();
+        }
     }
 
     @Cacheable("mapOfTos")

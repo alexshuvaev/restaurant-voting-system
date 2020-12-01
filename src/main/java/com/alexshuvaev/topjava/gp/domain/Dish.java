@@ -1,8 +1,8 @@
 package com.alexshuvaev.topjava.gp.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * Simple JavaBean domain object representing a Dish.
@@ -12,9 +12,9 @@ import java.util.Objects;
 @Table(name = "dish", uniqueConstraints = {@UniqueConstraint(columnNames = {"date"}, name = "dish_unique_date_idx")})
 public class Dish extends AbstractNamedEntity {
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
@@ -24,14 +24,14 @@ public class Dish extends AbstractNamedEntity {
     protected Dish() {
     }
 
-    public Dish(Integer id, String name, Double price, Restaurant restaurant, LocalDate localDate) {
+    public Dish(Integer id, String name, BigDecimal price, Restaurant restaurant, LocalDate localDate) {
         super(id, name);
         this.price = price;
         this.restaurant = restaurant;
         this.date = localDate;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -41,20 +41,6 @@ public class Dish extends AbstractNamedEntity {
 
     public LocalDate getDate() {
         return date;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Dish)) return false;
-        if (!super.equals(o)) return false;
-        Dish dish = (Dish) o;
-        return getPrice().equals(dish.getPrice()) && getName().equals(dish.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode());
     }
 
     @Override

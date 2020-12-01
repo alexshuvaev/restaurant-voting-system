@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -23,7 +24,6 @@ import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER;
 import static com.alexshuvaev.topjava.gp.testdata.UserTestData.USER_PASSWORD;
 import static com.alexshuvaev.topjava.gp.util.DateTimeUtil.THRESHOLD_TIME;
 import static com.alexshuvaev.topjava.gp.util.TestUtil.userHttpBasic;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,7 +50,8 @@ class UserControllerExceptionTest {
     ObjectMapper objectMapper;
 
     @Test
-    void voteForRestaurant() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void voteForRestaurant() throws Exception {
         when(restaurantRepository
                 .findById(any()))
                 .thenReturn(Optional.empty());

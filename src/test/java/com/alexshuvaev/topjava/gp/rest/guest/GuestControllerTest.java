@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -21,7 +22,7 @@ import java.util.Map;
 import static com.alexshuvaev.topjava.gp.rest.RestEndpoints.*;
 import static com.alexshuvaev.topjava.gp.testdata.AllTestData.*;
 import static com.alexshuvaev.topjava.gp.util.TestUtil.TODAY_STRING;
-import static com.alexshuvaev.topjava.gp.util.TestUtil.TOMORROW_STRING;
+import static com.alexshuvaev.topjava.gp.util.TestUtil.YESTERDAY_STRING;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,7 +43,8 @@ class GuestControllerTest {
     ObjectMapper objectMapper;
 
     @Test
-    void findAll() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAll() throws Exception {
         String actual = mockMvc.perform(get(GET_RESTAURANT_LIST)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -56,9 +58,10 @@ class GuestControllerTest {
     }
 
     @Test
-    void findAllMenus() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void findAllMenus() throws Exception {
         String actual = mockMvc.perform(get(GET_MENUS_LIST)
-                .param("startDate", TOMORROW_STRING)
+                .param("startDate", YESTERDAY_STRING)
                 .param("endDate", TODAY_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -78,12 +81,13 @@ class GuestControllerTest {
     }
 
     @Test
-    void getSingleRestaurantMenu() throws Exception {
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
+    public void getSingleRestaurantMenu() throws Exception {
         int restaurantId = 1;
         String actual = mockMvc.perform(get(GET_SINGLE_RESTAURANT_MENU, restaurantId)
                 .param("id", String.valueOf(restaurantId))
-                .param("startDate", TOMORROW_STRING)
-                .param("endDate", TOMORROW_STRING)
+                .param("startDate", YESTERDAY_STRING)
+                .param("endDate", YESTERDAY_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())

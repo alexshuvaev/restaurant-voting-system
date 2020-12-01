@@ -13,10 +13,10 @@ public class TestUtil {
     private TestUtil() {
     }
 
-    public static final LocalDate TOMORROW = LocalDate.now().minusDays(1);
+    public static final LocalDate YESTERDAY = LocalDate.now().minusDays(1);
     public static final LocalDate TODAY = LocalDate.now();
 
-    public static final String TOMORROW_STRING = TOMORROW.format(DateTimeFormatter.ISO_DATE);
+    public static final String YESTERDAY_STRING = YESTERDAY.format(DateTimeFormatter.ISO_DATE);
     public static final String TODAY_STRING = TODAY.format(DateTimeFormatter.ISO_DATE);
 
     public static RequestPostProcessor userHttpBasic(User user, String password) {

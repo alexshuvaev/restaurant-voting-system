@@ -9,13 +9,14 @@ import com.alexshuvaev.topjava.gp.repository.UserRepository;
 import com.alexshuvaev.topjava.gp.repository.VoteRepository;
 import com.alexshuvaev.topjava.gp.to.VoteTo;
 import com.alexshuvaev.topjava.gp.util.DateTimeUtil;
-import com.alexshuvaev.topjava.gp.util.exception.ForbiddenException;
+import com.alexshuvaev.topjava.gp.util.exception.NotAllowedException;
 import com.alexshuvaev.topjava.gp.util.exception.NotFoundException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,12 +66,15 @@ public class UserController {
         List<LocalDate> list = DateTimeUtil.checkAndInitStartDateEndDate(startDate, endDate);
         log.info("Get votes history, user id={}", authUser.getId());
 
-        List<Vote> findVotes = voteRepository.getAll(list.get(0), list.get(1), authUser.getId())
-                .orElseThrow(() -> new NotFoundException("Votes was not found."));
-
-        return voteTosCreate(findVotes);
+        Optional<List<Vote>> findVotes = voteRepository.getAll(list.get(0), list.get(1), authUser.getId());
+        if (findVotes.isPresent()){
+            return voteTosCreate(findVotes.get());
+        }else {
+            return Collections.emptyList();
+        }
     }
 
+    @CacheEvict(cacheNames = { "listOfTos", "mapOfTos" }, allEntries = true)
     @Transactional
     @PreAuthorize("hasRole('ROLE_USER')")
     @ApiOperation(value = "Vote for restaurant", authorizations = {@Authorization(value = "Basic")})
@@ -81,7 +86,7 @@ public class UserController {
         Optional<Vote> existedVote = voteRepository.findByUserIdAndDate(authUser.getId(), LocalDate.now());
         if (existedVote.isPresent()) {
             if (LocalTime.now().isAfter(DateTimeUtil.THRESHOLD_TIME)) {
-                throw new ForbiddenException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
+                throw new NotAllowedException("Vote not accepted. Current time: " + LocalTime.now().format(DateTimeUtil.df) + " Votes accepting until 11:00 AM.");
             }
             Vote updatedVote = new Vote(user, restaurant);
             updatedVote.setId(existedVote.get().getId());

@@ -2,9 +2,9 @@ package com.alexshuvaev.topjava.gp.to;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class DishTo {
@@ -13,14 +13,13 @@ public class DishTo {
     @JsonProperty(value = "dish_name")
     private String name;
 
-    @DecimalMin(value = "0.1", message = "should be upper 0.1")
     @JsonProperty(value = "dish_price")
-    private double price;
+    private BigDecimal price;
 
     public DishTo() {
     }
 
-    public DishTo(@NotEmpty(message = "should not be empty") String name, @DecimalMin(value = "0.1", message = "should be upper 0.1") double price) {
+    public DishTo(@NotEmpty(message = "should not be empty") String name, BigDecimal price) {
         this.name = name;
         this.price = price;
     }
@@ -29,7 +28,7 @@ public class DishTo {
         return name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -38,8 +37,8 @@ public class DishTo {
         if (this == o) return true;
         if (!(o instanceof DishTo)) return false;
         DishTo dishTo = (DishTo) o;
-        return Double.compare(dishTo.getPrice(), getPrice()) == 0 &&
-                getName().equals(dishTo.getName());
+        return getName().equals(dishTo.getName()) &&
+                getPrice().equals(dishTo.getPrice());
     }
 
     @Override
@@ -49,6 +48,6 @@ public class DishTo {
 
     @Override
     public String toString() {
-        return "DishTo: " + "name=" + name + ", price=" + price;
+        return "DishTo: " + "name=" + name + ", price=" + getPrice();
     }
 }
